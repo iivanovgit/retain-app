@@ -1,4 +1,5 @@
 import { Component, Output, EventEmitter } from '@angular/core';
+import { AfService, Note } from '../services';
 
 // [ngModel]="newNote.value"
 // (ngModelChange)="newNote.value = $event"
@@ -24,7 +25,6 @@ import { Component, Output, EventEmitter } from '@angular/core';
     `],
     template: `
     <div class="note-creator shadow-2"
-    (clickOutside)="toggle(false)" 
     [ngStyle]="{'background-color': newNote.color}">
         <form class="row" (submit)="onCreateNote()">
             <input class="col-xs-10 title"
@@ -64,11 +64,7 @@ export class NoteCreatorComponent {
     colors: Array<string> = [
         'gold', 'lightblue', 'crimson', 'lightgreen', 'pink', 'white'
     ];
-    newNote = {
-        title: '',
-        value: '',
-        color: 'white'
-    };
+    newNote = <Note>{ color: 'white' };
     fullForm: boolean = false;
 
     onCreateNote() {
@@ -86,11 +82,7 @@ export class NoteCreatorComponent {
     }
 
     reset() {
-        this.newNote = {
-            title: '',
-            value: '',
-            color: 'white'
-        };
+        this.newNote = <Note>{};
     }
 
     toggle(value: boolean) {

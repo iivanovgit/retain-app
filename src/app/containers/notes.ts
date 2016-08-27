@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import { AngularFire, FirebaseListObservable } from 'angularfire2';
+// import { AfService } from '../services';
 
 @Component({
   selector: 'notes-container',
@@ -10,14 +14,16 @@ import { Component } from '@angular/core';
       <div class="notes col-xs-8">
         <div class="row between-xs">
           <note-card class="col-xs-4"
-            *ngFor = "let note of notes; let i = index"
+            *ngFor = "let note of items| async"
             [note]="note"
-            (checked)="onNoteChecked($event, i)"
+            (checked)="onNoteChecked($event)"
           >
           </note-card>
         </div>
       </div>
     </div>
+    <div class="row center-xs" *ngFor = "let item of items | async">
+    {{item.$key | json}}</div>
     `,
   styles: [`
         .notes {
@@ -46,13 +52,27 @@ export class NotesComponent {
       color: 'pink'
     }
   ];
+  neshto = [];
+  items: FirebaseListObservable<any>;
 
-  onNoteChecked(note, index) {
-    this.notes.splice(index, 1);
+  constructor(
+    public af: AngularFire) {
+    this.items = af.database.list('tasks');
+    this.items.subscribe(value => {
+      this.neshto = value;
+      for (let i = 0; i < this.neshto.length; i++) {
+        console.log(this.neshto[i]);
+      }
+      console.log('----------');
+    });
+  }
+
+  onNoteChecked(key: string) {
+    this.items.remove(key);
   }
 
   onCreateNote(note) {
-    this.notes.push(note);
+    this.items.push(note);
   }
 
 }
