@@ -16,13 +16,24 @@ export class AfService implements Note {
     color: string;
 
 
-    private tasks$: FirebaseListObservable<Note[]>;
+    private notes$: FirebaseListObservable<Note[]>;
 
     constructor(af: AngularFire) {
         const path = '/tasks';
-        this.tasks$ = af.database.list(path);
+        this.notes$ = af.database.list(path);
     }
 
+    public getNotes() {
+        return this.notes$;
+    }
+
+    public addNote(key: string) {
+        this.notes$.remove(key);
+    }
+
+    public removeNote(note: Note) {
+        this.notes$.push(note);
+    }
 
 
     // filterTasks(filter: string): void {

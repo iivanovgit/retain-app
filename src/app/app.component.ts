@@ -5,7 +5,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
   template: `
     <app-bar></app-bar>
     <main-container>
-      <notes-container></notes-container>
+      <router-outlet></router-outlet>
     </main-container> 
   `,
   styleUrls: ['app.component.css'],

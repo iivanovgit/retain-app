@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
-// import { AfService } from '../services';
+import { Subscription } from 'rxjs/Subscription';
+// import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { Note, AfService } from '../services';
 
 @Component({
   selector: 'notes-container',
@@ -14,7 +14,7 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
       <div class="notes col-xs-8">
         <div class="row between-xs">
           <note-card class="col-xs-4"
-            *ngFor = "let note of items| async"
+            *ngFor = "let note of notes"
             [note]="note"
             (checked)="onNoteChecked($event)"
           >
@@ -22,8 +22,8 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
         </div>
       </div>
     </div>
-    <div class="row center-xs" *ngFor = "let item of items | async">
-    {{item.$key | json}}</div>
+    <div class="row center-xs" *ngFor = "let note of notes">
+    {{note.$key | json}}</div>
     `,
   styles: [`
         .notes {
@@ -35,44 +35,45 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
     `]
 })
 
-export class NotesComponent {
-  notes = [
-    {
-      title: 'clean up',
-      value: 'clean room',
-      color: 'gold'
-    }, {
-      title: 'clean up',
-      value: 'Do not forget to clean up',
-      color: 'lightgreen'
-    },
-    {
-      title: 'clean up',
-      value: 'clean room',
-      color: 'pink'
-    }
-  ];
-  neshto = [];
-  items: FirebaseListObservable<any>;
+export class NotesComponent implements OnInit {
+  notes: Note[];
+  sub: Subscription;
+
+  // items: FirebaseListObservable<any>;
+
+  // constructor(
+  //   public af: AngularFire) {
+  //   this.items = af.database.list('tasks');
+  //   this.items.subscribe(value => {
+  //     this.neshto = value;
+  //     for (let i = 0; i < this.neshto.length; i++) {
+  //       console.log(this.neshto[i]);
+  //     }
+  //     console.log('----------');
+  //   });
+  // }
 
   constructor(
-    public af: AngularFire) {
-    this.items = af.database.list('tasks');
-    this.items.subscribe(value => {
-      this.neshto = value;
-      for (let i = 0; i < this.neshto.length; i++) {
-        console.log(this.neshto[i]);
-      }
-      console.log('----------');
-    });
+    private service: AfService,
+  ) { }
+
+  ngOnInit() {
+    this.sub = this.service.getNotes()
+      .subscribe(res => {
+        this.notes = res;
+        for (let i = 0; i < this.notes.length; i++) {
+          console.log(this.notes[i]);
+        }
+        console.log('----------');
+      });
   }
 
   onNoteChecked(key: string) {
-    this.items.remove(key);
+    this.service.addNote(key);
   }
 
   onCreateNote(note) {
-    this.items.push(note);
+    this.service.removeNote(note);
   }
 
 }
