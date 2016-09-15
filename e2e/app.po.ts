@@ -1,4 +1,6 @@
-export class Arch1Page {
+import { browser, element, by } from 'protractor/globals';
+
+export class RetainAppPage {
   navigateTo() {
     return browser.get('/');
   }

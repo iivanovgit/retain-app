@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 // import { AngularFire, FirebaseListObservable } from 'angularfire2';
-import { Note, AfService } from '../services';
+import { Note, NoteService, AngularFireService } from '../services';
 
 @Component({
   selector: 'notes-container',
@@ -54,7 +54,8 @@ export class NotesComponent implements OnInit {
   // }
 
   constructor(
-    private service: AfService,
+    // private noteService: NoteService,
+    private service: AngularFireService,
   ) { }
 
   ngOnInit() {

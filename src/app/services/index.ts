@@ -1,2 +1,4 @@
 export * from './api';
-export * from './af'
+export * from './angularfire';
+export * from './notes';
+export * from './auth';

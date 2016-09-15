@@ -10,7 +10,7 @@ export interface Note {
 
 
 @Injectable()
-export class AfService implements Note {
+export class AngularFireService implements Note {
     title: string;
     value: string;
     color: string;

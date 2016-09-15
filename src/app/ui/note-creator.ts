@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { AfService, Note } from '../services';
+import { AngularFireService, Note } from '../services';
 
 // [ngModel]="newNote.value"
 // (ngModelChange)="newNote.value = $event"
@@ -64,7 +64,8 @@ export class NoteCreatorComponent {
     colors: Array<string> = [
         'gold', 'lightblue', 'crimson', 'lightgreen', 'pink', 'white'
     ];
-    newNote = <Note>{ color: 'white' };
+    colorDefault = 'white';
+    newNote = <Note>{ color: this.colorDefault };
     fullForm: boolean = false;
 
     onCreateNote() {
@@ -82,7 +83,7 @@ export class NoteCreatorComponent {
     }
 
     reset() {
-        this.newNote = <Note>{};
+        this.newNote = <Note>{ color: this.colorDefault };
     }
 
     toggle(value: boolean) {

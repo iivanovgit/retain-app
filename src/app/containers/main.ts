@@ -5,11 +5,11 @@ import { Component } from '@angular/core';
   template: `
     <div>
         <main class="main">
-           <ng-content></ng-content>
+           <router-outlet></router-outlet>
         </main>
     </div>
   `
 })
 export class MainComponent {
-  
+
 }

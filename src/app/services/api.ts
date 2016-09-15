@@ -12,11 +12,12 @@ export class ApiService {
         'Content-Type': 'application.json',
         Accept: 'application.json'
     });
-    api_url: string = 'http://jsonplaceholder.typicode.com';
+    api_url: string;
 
 
     constructor(
         private http: Http) {
+        this.api_url = 'https://retain-app.firebaseio.com';
     }
 
     private getJson(response: Response) {
@@ -38,7 +39,7 @@ export class ApiService {
         return this.http.get(`${this.api_url}${path}`, { headers: this.headers })
             .map(this.checkForError)
             .catch(err => Observable.throw(err))
-            .map(this.getJson)
+            .map(this.getJson);
     }
 
     post(path: string, body): Observable<any> {

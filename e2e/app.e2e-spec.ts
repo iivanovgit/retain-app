@@ -1,10 +1,10 @@
-import { Arch1Page } from './app.po';
+import { RetainAppPage } from './app.po';
 
-describe('arch1 App', function() {
-  let page: Arch1Page;
+describe('retain-app App', function() {
+  let page: RetainAppPage;
 
   beforeEach(() => {
-    page = new Arch1Page();
+    page = new RetainAppPage();
   });
 
   it('should display message saying app works', () => {
