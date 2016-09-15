@@ -9,13 +9,13 @@ const appRoutes: Routes = [
     {
         path: '',
         component: MainComponent,
-        canActivate: [AuthService],
+        // canActivate: [AuthService],
         children: [
             { path: '', component: NotesComponent },
             { path: 'other', component: OtherComponent },
         ]
     },
-    { path: 'auth', component: AuthComponent },
+    // { path: 'auth', component: AuthComponent },
     { path: '**', redirectTo: '' }
 ];
 

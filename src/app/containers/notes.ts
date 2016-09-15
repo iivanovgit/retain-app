@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 // import { AngularFire, FirebaseListObservable } from 'angularfire2';
-import { Note, NoteService, AngularFireService } from '../services';
+import { Note, AngularFireService } from '../services';
 
 @Component({
   selector: 'notes-container',
@@ -39,22 +39,7 @@ export class NotesComponent implements OnInit {
   notes: Note[];
   sub: Subscription;
 
-  // items: FirebaseListObservable<any>;
-
-  // constructor(
-  //   public af: AngularFire) {
-  //   this.items = af.database.list('tasks');
-  //   this.items.subscribe(value => {
-  //     this.neshto = value;
-  //     for (let i = 0; i < this.neshto.length; i++) {
-  //       console.log(this.neshto[i]);
-  //     }
-  //     console.log('----------');
-  //   });
-  // }
-
   constructor(
-    // private noteService: NoteService,
     private service: AngularFireService,
   ) { }
 
@@ -70,11 +55,11 @@ export class NotesComponent implements OnInit {
   }
 
   onNoteChecked(key: string) {
-    this.service.addNote(key);
+    this.service.removeNote(key);
   }
 
   onCreateNote(note) {
-    this.service.removeNote(note);
+    this.service.addNote(note);
   }
 
 }

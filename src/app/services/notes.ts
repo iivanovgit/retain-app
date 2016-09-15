@@ -8,7 +8,7 @@ export class NoteService {
 
     }
 
-    createNote(note) {
+    addNote(note) {
         return this.apiService.post(this.path, note);
     }
 
@@ -16,7 +16,7 @@ export class NoteService {
         return this.apiService.get(this.path);
     }
 
-    completeNote(note) {
-        return this.apiService.delete(`${this.path}/${note.id}`);
+    removeNote(note) {
+        return this.apiService.remove(`${this.path}/${note.id}`);
     }
 }

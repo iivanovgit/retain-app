@@ -10,11 +10,7 @@ export interface Note {
 
 
 @Injectable()
-export class AngularFireService implements Note {
-    title: string;
-    value: string;
-    color: string;
-
+export class AngularFireService {
 
     private notes$: FirebaseListObservable<Note[]>;
 
@@ -27,11 +23,11 @@ export class AngularFireService implements Note {
         return this.notes$;
     }
 
-    public addNote(key: string) {
+    public removeNote(key: string) {
         this.notes$.remove(key);
     }
 
-    public removeNote(note: Note) {
+    public addNote(note: Note) {
         this.notes$.push(note);
     }
 
